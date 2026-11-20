@@ -29,4 +29,13 @@ public class Reservation {
     @Column(nullable = false, length = 20)
     private StatusReservation status;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Client client;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Vehicle vehicle;
+
+    @OneToOne(mappedBy = "reservation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Contract contract;
+
 }

@@ -29,4 +29,6 @@ public class Payment {
     @Column(nullable = false, length = 20)
     private ModePayment modePayment;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Contract contract;
 }
