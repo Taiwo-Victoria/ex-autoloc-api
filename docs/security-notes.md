@@ -36,4 +36,21 @@ stores or compares plain-text passwords.
 ## Limits of in-memory users
 The two accounts are hard-coded for classroom practice: they are recreated at each
 restart, cannot be managed at runtime and must never be used in production.
-A real setup would load users and roles from MySQL through a custom UserDetailsService.
+A real setup would load users and roles from MySQL through a custom UserDetailsService.##
+
+## Why must /api/admin/** come before /api/**? 
+If /api/** came first, it would match /api/admin/report and let any USER in.
+
+## 401 vs 403
+401 (Unauthorized) means "I don't know who you are": no credentials or wrong ones.
+403 (Forbidden) means "I know who you are, but you're not allowed": logged in without the required role.
+
+## Why BCrypt? 
+BCrypt is a one-way, salted, deliberately slow hash. If the user store leaks, the passwords can't be read back, the salt defeats precomputed tables, and the slowness makes guessing expensive.
+
+## Why in-memory users only for this exercise? 
+They're written in the code, lost and recreated at every restart, can't be managed without redeploying, and aren't shared between several app instances. 
+
+## Loading users from MySQL. 
+A Utilisateur entity (username, BCrypt password hash, roles) is needed, a repository with findByUsername, and a custom UserDetailsService that loads the user from the database. 
+Users would be created through an API that hashes the password before saving it.
