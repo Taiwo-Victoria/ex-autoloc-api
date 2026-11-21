@@ -12,3 +12,6 @@
 | Vehicle → Maintenance  | @OneToMany / @ManyToOne; Maintenance owns FK           | LAZY  | PERSIST                | New maintenance records are saved with their vehicle, but kept in the history.     |
 
 All associations are LAZY to avoid loading chains of related objects.
+
+### UML Diagram showing the association
+![autoloc_db](docs/UML_Diagram/class_diagram_autoloc.png)
